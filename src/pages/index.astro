@@ -1,13 +1,45 @@
----
-// Welcome to Astro! Everything between these triple-dash code fences
-// is your "component frontmatter". It never runs in the browser.
-console.log("This runs in your terminal, not the browser!");
----
+<main
+  class="bg-background w-full min-h-screen flex flex-col items-center justify-center gap-6 py-[102px] px-[46px]"
+>
+  <h1 class="text-title font-title text-center">JSON Tree Viewer</h1>
+  <h2 class="text-subtitle text-center">
+    Simple JSON Viewer that runs completely on-client. No data exchange
+  </h2>
+  <label
+    class="cursor-pointer bg-button text-body py-[6px] px-[12px] rounded-[5px] border"
+  >
+    <span>Load JSON</span>
+    <input id="loadJSONInput" type="file" accept=".json" class="hidden" />
+  </label>
 
-<!-- Below is your "component template." It's just HTML, but with
-     some magic sprinkled in to help you build great templates. -->
-<html>
-  <body>
-    <h1 class="text-5xl font-bold">AaBb</h1>
-  </body>
-</html>
+  <span id="loadJSONInputErrorMessage" class="text-invalid text-body hidden"
+    >Invalid file. Please load a valid JSON file.</span
+  >
+</main>
+
+<script>
+  function validateJSON(file) {
+    const reader = new FileReader();
+    const errorMessage = document.querySelector("#loadJSONInputErrorMessage");
+
+    reader.onload = (e) => {
+      try {
+        const fileContent = e.target.result as string;
+        const jsonObject = JSON.parse(fileContent);
+        errorMessage.classList.add("hidden");
+        console.log("JSON válido:", jsonObject);
+      } catch (error) {
+        errorMessage.classList.remove("hidden");
+        console.error("Invalid file. Please load a valid JSON file.");
+      }
+    };
+
+    reader.readAsText(file);
+  }
+  function handleLoadJSON(event) {
+    validateJSON(event.target.files[0]);
+  }
+  document
+    .querySelector("#loadJSONInput")
+    .addEventListener("change", handleLoadJSON);
+</script>

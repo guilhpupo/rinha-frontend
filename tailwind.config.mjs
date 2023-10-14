@@ -15,6 +15,14 @@ export default {
       fontFamily: {
         sans: ["Inter", "sans-serif"],
       },
+      fontSize: {
+        title: "3rem",
+        subtitle: "1.5rem",
+        body: "1rem",
+      },
+      fontWeight: {
+        title: 700,
+      },
     },
   },
   plugins: [],
