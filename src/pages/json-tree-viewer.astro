@@ -1,0 +1,21 @@
+---
+import JSONTreeViewer from "../components/JSONTreeViewer";
+
+const fullJson = localStorage.getItem("fullJson");
+
+const json = JSON.parse(fullJson);
+---
+
+<main class="flex flex-col gap-[10px] justify-center w-[683px]">
+  <h1 id="fileName" class="text-[32px] font-title text-black"></h1>
+  <JSONTreeViewer json={json} />
+</main>
+
+<script>
+  function loadFileName() {
+    const fileName = localStorage.getItem("fileName");
+    document.querySelector("#fileName").textContent = fileName;
+  }
+
+  loadFileName();
+</script>
